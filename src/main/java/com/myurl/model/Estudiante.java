@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -15,20 +17,30 @@ import javax.persistence.TemporalType;
 @Entity 							// se indica que es una ENTIDAD
 @Table(name = "estudiantes") 		// el nombre de la tabla es "clientes" en la BD
 public class Estudiante {
+	
 	@Id 							// se indica que este atributo es la llave principal de la tabla
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // se indica que el id es autoincrementable
 	private Long id_estudiante;
+	
 	@Column
 	private String nombres;
+	
 	@Column
 	private String apellidos;
+	
 	@Column
 	private String usuario;
+	
 	@Column
 	private String clave;
+	
 	@Temporal(TemporalType.TIMESTAMP)		//se indica que se va a guardar una fecha con hora
 	private Date fecha_registro;
 	
+	@ManyToOne
+	private Clase clase;
+	
+	@ManyToMany(mappedBy = "lstEstudiantes")	//se crea la relacion muchos a muchos con la Clase
 	private List<Quiz> lstQuices;
 	
 	/**

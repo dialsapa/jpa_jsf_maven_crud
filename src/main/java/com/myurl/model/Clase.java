@@ -2,9 +2,22 @@ package com.myurl.model;
 
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+
+@Entity								//se indica que es una ENTIDAD
+@Table(name="clases")				//el nombre de la tabla es "clientes" en la BD
 public class Clase {
+	@Id
 	private String nombreClase;
+	
+	@OneToMany(mappedBy = "clase")
 	private List<Estudiante> lstEstudiantes;
+	
+	@OneToMany(mappedBy = "clase")
 	private List<Quiz> lstQuices;
 
 	public Clase() {

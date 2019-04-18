@@ -2,25 +2,65 @@ package com.myurl.model;
 
 import java.util.Date;
 import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 /**
  * Clase que crea un Test Quiz
  * 
  * @author ALEJANDRO
  *
  */
+@Entity // se indica que es una ENTIDAD
+@Table(name = "quices") // el nombre de la tabla es "clientes" en la BD
+
 public class Quiz {
+	@Id
+	private Long id_quiz;
+
+	@Column
 	private String nombreQuiz;
+	
+	@Column
 	private String codigoQuiz;
+	
+	@Column
 	private int cantidadPreguntas;
+	
+	@Column
 	private int nivelQuiz;
+	
+	@Temporal(TemporalType.TIMESTAMP) // se indica que se va a guardar una fecha con hora
 	private Date fechaCreado;
+	
+	@Temporal(TemporalType.TIMESTAMP) // se indica que se va a guardar una fecha con hora
 	private Date fechaAsignado;
+	
+	@Column
 	private boolean aleatorio;
-
+	
+	@Column
 	private int duracionQuiz;
+	
+	@Temporal(TemporalType.TIMESTAMP) // se indica que se va a guardar una fecha con hora
 	private Date fechaLimite;
-
+	
+	@OneToMany(mappedBy = "quiz")
 	private List<Pregunta> lstPreguntas;
+	
+	@ManyToOne
+	private Clase clase;
+	
+	@ManyToMany
+	private List<Estudiante> lstEstudiantes;
 
 	public Quiz() {
 		// TODO Auto-generated constructor stub
@@ -49,7 +89,7 @@ public class Quiz {
 		this.duracionQuiz = duracionQuiz;
 		this.fechaLimite = fechaLimite;
 		this.lstPreguntas = lstPreguntas;
-		this.aleatorio=true;
+		this.aleatorio = true;
 	}
 
 	/**
@@ -73,7 +113,7 @@ public class Quiz {
 		this.fechaAsignado = fechaAsignado;
 		this.duracionQuiz = duracionQuiz;
 		this.fechaLimite = fechaLimite;
-		this.aleatorio=true;
+		this.aleatorio = true;
 	}
 
 	/**
@@ -93,7 +133,7 @@ public class Quiz {
 		this.nivelQuiz = nivelQuiz;
 		this.fechaCreado = fechaCreado;
 		this.fechaAsignado = fechaAsignado;
-		this.aleatorio=true;
+		this.aleatorio = true;
 	}
 
 	/**
@@ -235,6 +275,5 @@ public class Quiz {
 	public void setLstPreguntas(List<Pregunta> lstPreguntas) {
 		this.lstPreguntas = lstPreguntas;
 	}
-	
 
 }
