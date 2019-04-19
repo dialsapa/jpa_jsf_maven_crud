@@ -24,7 +24,7 @@
 					<div id="box">
 						<h:form rendered="#{seguridadBean.autenticado}">
 							<h:outputText
-								value="Usuario: #{seguridadBean.usuario.nombre} (#{seguridadBean.usuario.cargo.descripcion_cargo})"
+								value="Maestro: #{seguridadBean.maestro.nombres} #{seguridadBean.maestro.apellidos}"
 								style="color:#C00333;" />
 							<p:commandLink action="#{seguridadBean.salir()}"
 								oncomplete="logout(xhr, status, args)" value="Cerrar Sesion" />
@@ -77,7 +77,7 @@
    //   <![CDATA[   
    function logout(xhr, status, args) {
      setTimeout(function() {
-       window.location = 'index.jsf';
+       window.location = 'index.xhtml';
      }, 500);
    } //   ]]> 
    </script>

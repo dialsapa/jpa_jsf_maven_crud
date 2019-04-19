@@ -195,9 +195,11 @@ public class Maestro {
 
 	@Override
 	public String toString() {
-		return "Maestro [nombres=" + nombres + ", apellidos=" + apellidos + ", email=" + email + ", usuario=" + usuario
-				+ "]";
+		return "Maestro [id_maestro=" + id_maestro + ", nombres=" + nombres + ", apellidos=" + apellidos + ", email="
+				+ email + ", palabraSecreta=" + palabraSecreta + ", usuario=" + usuario + ", clave=" + clave + "]";
 	}
+
+
 
 	
 }

@@ -24,12 +24,12 @@
 			<h:panelGrid columns="3" columnClasses="titleCell">
 				<h:outputLabel for="nameUsuario" value="#{msg['usuario']}" />
 				<h:inputText id="nameUsuario"
-					value="#{seguridadBean.usuario.nickname}" required="true" />
+					value="#{seguridadBean.maestro.usuario}" required="true" />
 				<h:message for="nameUsuario" errorClass="invalid" />
 
 				<h:outputLabel for="password" value="#{msg['contrasena']}" />
-				<h:inputSecret id="password"
-					value="#{seguridadBean.usuario.password}" required="true" />
+				<h:inputSecret id="password" value="#{seguridadBean.maestro.clave}"
+					required="true" />
 				<h:message for="password" errorClass="invalid" />
 
 			</h:panelGrid>
@@ -44,10 +44,22 @@
 						<li><a href="recuperarContrasenia.jsf">#{msg['webapp.Index.recuperar']}</a></li>
 					</ul>
 				</h:panelGrid>
+
+				<h:panelGrid columns="3">
+					<h2>#{msg['webapp.Index.ingresarCodigoQuizz']}</h2>
+					<h:inputText id="codigoQuiz"
+						value="#{seguridadBean.codigoQuiz}" />
+					<p:commandButton id="ingresarCodigoQuiz"
+						action="#{seguridadBean.autenticar}"
+						value="#{msg['webapp.Index.ingresarCodigo']}"
+						styleClass="autenticar"
+						update=":msgs reg:nameUsuario reg:password reg:mensajes" />
+
+				</h:panelGrid>
 			</p>
 			<p:panel>
 				<h:messages errorClass="invalid"
-					style="color:Red;font-size:medium;font-weight:bold;" id="mensajes"/>
+					style="color:Blue;font-size:medium;font-weight:bold;" id="mensajes" />
 			</p:panel>
 		</h:form>
 		<!-- 

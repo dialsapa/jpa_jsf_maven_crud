@@ -23,57 +23,57 @@ import com.myurl.model.Maestro;
 @ManagedBean
 @SessionScoped
 public class SeguridadBean {
-	private static final String ES_MAESTRO = "maestro";
-	private static final String ES_ESTUDIANTE = "estudiante";
-	private static final int EMAIL_RECUPERARCONTRASENA = 4;
-
 	/**
 	 * Atributo que accede a los mensajes codificados en archivo externo de
 	 * propiedades
 	 */
 	private static ResourceBundle rb = ResourceBundle.getBundle("resources.mensaje");
-
 	private Maestro maestro = new Maestro();
 	private Maestro maestroReg;
 	private String palabraSecreta;
 	private String nuevoPassword;
 	private String passwordActual;
 	private String nuevoPasswordConf;
+	private String codigoQuiz;
 
 	private boolean autenticado = false;
 	private boolean usuarioValidado = false;
 	private boolean validaRespuesta = false;
+	private boolean esMaestro;
 
 	/**
-	 * Metodo que autentica que el usuario y contrasenia sean los registrados en
-	 * la BD.
+	 * Metodo que autentica que el usuario y contrasenia sean los registrados en la
+	 * BD.
 	 * 
 	 */
 	public String autenticar() {
-		MaestroDAO maestroDAO=new MaestroDAO();
-		
-		maestroReg = maestroDAO.buscarMaestroPorUsuarioClave(maestro.getUsuario(),
-				maestro.getClave());
+		MaestroDAO maestroDAO = new MaestroDAO();
+
+		maestroReg = maestroDAO.buscarMaestroPorUsuarioClave(maestro.getUsuario(), maestro.getClave());
 		if (maestroReg == null) {
 			enviarMensaje(rb.getString("bean.seguridadBean.noAutenticado"));
+			return "";
 		} else {
 			autenticado = true;
+			esMaestro = true;
 			maestro = maestroReg;
-			return "Main.jsf";
+			System.out.println(maestro);
+			return "/Main.jsf";
 		}
-		return "";
+		
 	}
 
 	/**
 	 * Metodo para salir de la aplicacion. Cierra la sesion iniciada.
 	 */
-	public void salir() {
+	public String salir() {
 		HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
 		session.invalidate();
 		autenticado = false;
 		palabraSecreta = "";
 		maestroReg = null;
 		maestro = new Maestro();
+		return "/index.xhtml";
 	}
 
 	/**
@@ -81,7 +81,7 @@ public class SeguridadBean {
 	 * el numero de documento
 	 */
 	public void validarUsuario() {
-		MaestroDAO maestroDAO=new MaestroDAO();
+		MaestroDAO maestroDAO = new MaestroDAO();
 		maestroReg = maestroDAO.buscarMaestro(maestro.getId_maestro());
 		if (maestroReg == null) {
 			usuarioValidado = false;
@@ -101,7 +101,7 @@ public class SeguridadBean {
 	 * @return
 	 */
 	public String validarRespuesta() {
-		MaestroDAO maestroDAO=new MaestroDAO();
+		MaestroDAO maestroDAO = new MaestroDAO();
 		if (maestroDAO.validarPorPalabraSecreta(maestro.getUsuario(), palabraSecreta)) {
 			validaRespuesta = true;
 			maestro = new Maestro();
@@ -124,7 +124,7 @@ public class SeguridadBean {
 		if (passwordActual.equals(maestro.getClave())) {
 			if (nuevoPassword.equals(nuevoPasswordConf)) {
 				maestro.setClave(nuevoPassword);
-				MaestroDAO maestroDao=new MaestroDAO();
+				MaestroDAO maestroDao = new MaestroDAO();
 				maestroDao.editar(maestro);
 				enviarMensaje(rb.getString("bean.seguridadBean.confirmacionCambioContrasena"));
 				return "Main.jsf";
@@ -134,6 +134,10 @@ public class SeguridadBean {
 		} else {
 			enviarMensaje(rb.getString("bean.seguridadBean.contrasenasActualErrada"));
 		}
+		return "";
+	}
+
+	public String validarCodigoQuiz() {
 		return "";
 	}
 
@@ -269,6 +273,34 @@ public class SeguridadBean {
 	 */
 	public void setNuevoPasswordConf(String nuevoPasswordConf) {
 		this.nuevoPasswordConf = nuevoPasswordConf;
+	}
+
+	/**
+	 * @return the codigoQuiz
+	 */
+	public String getCodigoQuiz() {
+		return codigoQuiz;
+	}
+
+	/**
+	 * @param codigoQuiz the codigoQuiz to set
+	 */
+	public void setCodigoQuiz(String codigoQuiz) {
+		this.codigoQuiz = codigoQuiz;
+	}
+
+	/**
+	 * @return the esMaestro
+	 */
+	public boolean getEsMaestro() {
+		return esMaestro;
+	}
+
+	/**
+	 * @param esMaestro the esMaestro to set
+	 */
+	public void setEsMaestro(boolean esMaestro) {
+		this.esMaestro = esMaestro;
 	}
 
 }
