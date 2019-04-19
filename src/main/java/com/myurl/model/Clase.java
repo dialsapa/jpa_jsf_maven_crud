@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -19,6 +20,9 @@ public class Clase {
 	
 	@OneToMany(mappedBy = "clase")
 	private List<Quiz> lstQuices;
+	
+	@ManyToOne
+	private Maestro maestro;
 
 	public Clase() {
 		// TODO Auto-generated constructor stub

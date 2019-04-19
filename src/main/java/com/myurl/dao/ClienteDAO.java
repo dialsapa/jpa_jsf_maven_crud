@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import com.myurl.model.Cliente;
 import com.myurl.model.JPAUtil;
@@ -21,7 +22,7 @@ public class ClienteDAO {
 		entity.getTransaction().begin();
 		entity.persist(c);
 		entity.getTransaction().commit();
-		//JPAUtil.shutdown();
+		// JPAUtil.shutdown();
 	}
 
 	/**
@@ -33,7 +34,7 @@ public class ClienteDAO {
 		entity.getTransaction().begin();
 		entity.merge(c);
 		entity.getTransaction().commit();
-		//JPAUtil.shutdown();
+		// JPAUtil.shutdown();
 	}
 
 	/**
@@ -45,8 +46,26 @@ public class ClienteDAO {
 	 */
 	public Cliente buscarCliente(Long id) {
 		Cliente c = new Cliente();
-		c = entity.find(Cliente.class, id); 	// busca un Cliente con llave igual a id
+		c = entity.find(Cliente.class, id); // busca un Cliente con llave igual a id
 		return c;
+	}
+
+	/**
+	 * Metodo que usa la tecnologia Hibernate para buscar y retornar un cliente en
+	 * la BD, teniendo como criterio de cusqueda el id
+	 * 
+	 * @param id llave del cliente a buscar
+	 * @return cliente cuyo id coincida con el mandado por parametro
+	 */
+	public Cliente buscarClientePorUsuarioClave(String usuario, String clave) {
+		TypedQuery<Cliente> query = entity
+				.createQuery(
+						"SELECT u FROM Cliente u WHERE u.nombre=:usua AND u.apellido=:cla",
+						Cliente.class);
+		query.setParameter("usua", usuario);
+		query.setParameter("cla", clave);
+
+		return query.getSingleResult();
 	}
 
 	/**

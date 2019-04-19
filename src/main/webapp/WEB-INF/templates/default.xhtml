@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title><ui:insert name="titulo">
+                Facelets Template
+            </ui:insert></title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<h:outputStylesheet name="css/screen.css" />
+</h:head>
+
+<h:body>
+
+	<div>
+		<h:form>
+			<h:panelGrid columns="1"
+				style="float: right; margin-top:50px; margin-rigth:10px;"
+				rendered="#{seguridadBean.autenticado}">
+				<h:outputText value="Usuario: #{seguridadBean.usuario.nombre}"
+					style="color:#C00333;" />
+				<h:commandLink action="#{seguridadBean.salir()}"
+					value="Cerrar Sesion" />
+			</h:panelGrid>
+		</h:form>
+	</div>
+
+
+	<div id="container">
+		<div class="dualbrand">
+			<img src="resources/gfx/encabezado.png" />
+		</div>
+	</div>
+	<div id="menu">
+		<ui:insert name="menu">
+                    [Template menu]
+         </ui:insert>
+	</div>
+
+	<h:panelGrid columns="2">
+
+		<div id="content">
+			<ui:insert name="content">
+                    [Template content will be inserted here]
+         </ui:insert>
+		</div>
+	</h:panelGrid>
+
+	<div id="footer">
+		<p>
+			Este proyecto es desarrollado por SIGLO Sistemas Integrales Globales
+			Copy Rights 2015.<br />
+		</p>
+	</div>
+
+</h:body>
+</html>

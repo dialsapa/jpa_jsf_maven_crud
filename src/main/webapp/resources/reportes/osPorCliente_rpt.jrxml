@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.1.0.final using JasperReports Library version 6.1.0  -->
+<!-- 2015-08-31T11:44:10 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="usuarios_rpt" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="984f2a2f-ea9f-481d-8584-073006bad507">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sample DB"/>
+	<parameter name="TxtImpresoPor" class="java.lang.String"/>
+	<parameter name="TxtCliente" class="java.lang.String"/>
+	<field name="id_os" class="java.lang.Long"/>
+	<field name="empresaCliente.razonSocial" class="java.lang.String"/>
+	<field name="descripcion" class="java.lang.String"/>
+	<field name="tipoActividad.descripcion_tipoActividad" class="java.lang.String"/>
+	<field name="estado.descripcion_estado" class="java.lang.String"/>
+	<field name="fechaIniDeEjecucionActividad" class="java.util.Date"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="80" splitType="Stretch">
+			<image>
+				<reportElement x="81" y="0" width="399" height="70" uuid="5e73bbfa-8f3e-4d23-9d51-a4be25dfd0d2"/>
+				<imageExpression><![CDATA["/encabezado.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="50" splitType="Stretch">
+			<staticText>
+				<reportElement x="380" y="30" width="54" height="20" uuid="6d0cc1d3-fecd-4b35-aafd-9a1324395b6d"/>
+				<text><![CDATA[Cliente:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="438" y="31" width="132" height="18" uuid="d370a56a-1622-490f-8fa1-6b7fbc552be5"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{TxtCliente}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="8" width="568" height="30" uuid="7cd49249-70f4-4141-9c80-d408eb10929b"/>
+				<textElement textAlignment="Center">
+					<font size="13"/>
+				</textElement>
+				<text><![CDATA[Listado de Ordenes de Servicio por Cliente]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="570" height="20" forecolor="#FF0000" uuid="afe58470-ae56-4898-9677-f2eca1677352"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="0" width="27" height="20" uuid="19bb3d1a-d139-4838-a1f8-b02c7278d1d2"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="27" y="0" width="53" height="20" uuid="3b1e0b07-aa6c-45c8-ade8-c0118e08b18a"/>
+				<box>
+					<leftPen lineWidth="0.5" lineColor="#FF0000"/>
+					<rightPen lineWidth="0.5" lineColor="#FF0000"/>
+				</box>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="0" width="100" height="20" uuid="7f34bafe-8dfb-49ba-b73c-9df55cd3960d"/>
+				<box>
+					<leftPen lineWidth="0.5" lineColor="#FF0000"/>
+					<rightPen lineWidth="0.5" lineColor="#FF0000"/>
+				</box>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Descripción]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="180" y="0" width="100" height="20" uuid="f16771bf-9d72-47b6-941f-aa12a8ecf315"/>
+				<box>
+					<leftPen lineWidth="0.5" lineColor="#FF0000"/>
+					<rightPen lineWidth="0.5" lineColor="#FF0000"/>
+				</box>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Actividad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="280" y="0" width="100" height="20" uuid="1508de74-2d41-4713-bbb0-a5a467748637"/>
+				<box>
+					<leftPen lineWidth="0.5" lineColor="#FF0000"/>
+					<rightPen lineWidth="0.5" lineColor="#FF0000"/>
+				</box>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Estado Actual]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="380" y="0" width="190" height="20" uuid="9f1ff6dd-3d1a-448e-aacb-51dd4219273f"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Fecha inicial de ejecución]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="10" splitType="Stretch">
+			<textField>
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="27" height="10" uuid="7ab2e28f-c18d-4f4d-b074-66cb1657dc12"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{id_os}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToBandHeight" x="27" y="0" width="53" height="10" uuid="f41c8f47-7d69-4b99-83d3-b4323860d6bc"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{empresaCliente.razonSocial}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToBandHeight" x="80" y="0" width="100" height="10" uuid="c6490fcf-833b-4bc3-ae0c-ce5bd763711e"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToBandHeight" x="180" y="0" width="100" height="10" uuid="2a6553a2-8828-41cb-92ff-02b77c70d5a1"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tipoActividad.descripcion_tipoActividad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToBandHeight" x="280" y="0" width="100" height="10" uuid="5b93392e-da76-4d0f-be36-9516704775b0"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{estado.descripcion_estado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToBandHeight" x="380" y="0" width="190" height="10" uuid="dd2470d5-28bf-4074-95da-6d0e0b58b213"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fechaIniDeEjecucionActividad}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="50" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="20" width="30" height="18" uuid="ba210198-8097-4b24-8ecd-b6299b205b34"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="30" y="20" width="100" height="18" uuid="4de4db89-7aef-47df-9cf2-8548fe25dd77"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" of " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="200" y="20" width="50" height="18" uuid="ef235fe2-a057-4945-ad7c-7d782fda841f"/>
+				<textElement>
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<text><![CDATA[Impreso por:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="250" y="20" width="116" height="18" uuid="f8a7abb8-b212-447a-930b-589feef854df"/>
+				<textElement>
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{TxtImpresoPor}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="1" y="0" width="567" height="1" uuid="94de4d27-a158-4acf-a613-cdb7d9288f9a">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+			</line>
+			<textField pattern="MMMMM dd, yyyy h:m">
+				<reportElement x="380" y="20" width="190" height="18" uuid="641bdea3-ddb4-445d-bfe6-8e475aa05f04"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

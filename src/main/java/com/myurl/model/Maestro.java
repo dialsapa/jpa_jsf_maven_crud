@@ -2,13 +2,37 @@ package com.myurl.model;
 
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity								//se indica que es una ENTIDAD
+@Table(name="maestros")	
 public class Maestro {
+	@Id
+	private Long id_maestro;
+	
+	@Column
 	private String nombres;
+	
+	@Column
 	private String apellidos;
+	
+	@Column
 	private String email;
+	
+	@Column
 	private String palabraSecreta;
+	
+	@Column
 	private String usuario;
+	
+	@Column
 	private String clave;
+	
+	@OneToMany(mappedBy = "maestro")
 	private List<Clase> lstClases;
 
 	public Maestro() {
@@ -53,6 +77,22 @@ public class Maestro {
 		this.usuario = usuario;
 		this.clave = clave;
 		this.lstClases = lstClases;
+	}
+	
+	
+
+	/**
+	 * @return the id_maestro
+	 */
+	public Long getId_maestro() {
+		return id_maestro;
+	}
+
+	/**
+	 * @param id_maestro the id_maestro to set
+	 */
+	public void setId_maestro(Long id_maestro) {
+		this.id_maestro = id_maestro;
 	}
 
 	/**

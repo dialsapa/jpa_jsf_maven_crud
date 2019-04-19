@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<f:loadBundle basename="resources.mensaje" var="msg" />
+<h:head>
+	<title><ui:insert name="titulo">
+                #{msg['webapp.Index.tituloPagina']}
+            </ui:insert></title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+	<h:outputStylesheet name="css/screen.css" />
+</h:head>
+
+<h:body>
+	<div id="container">
+		<table border="1px" style="width: 100%">
+			<!-- Lo cambiaremos por CSS -->
+			<tr>
+				<td colspan="2">
+					<div id="box">
+						<h:form rendered="#{seguridadBean.autenticado}">
+							<h:outputText
+								value="Usuario: #{seguridadBean.usuario.nombre} (#{seguridadBean.usuario.cargo.descripcion_cargo})"
+								style="color:#C00333;" />
+							<p:commandLink action="#{seguridadBean.salir()}"
+								oncomplete="logout(xhr, status, args)" value="Cerrar Sesion" />
+						</h:form>
+					</div>
+				</td>
+
+
+			</tr>
+			<tr>
+				<td colspan="2">
+					<div class="dualbrand">
+						<img src="resources/gfx/encabezado.png" />
+					</div>
+				</td>
+
+			</tr>
+			<tr>
+				<td width="50" valign="top">
+					<div id="menu_izq">
+						<ui:insert name="menu">
+                    [Template Menu]
+         			</ui:insert>
+					</div>
+				</td>
+				<td>
+
+					<div>
+						<ui:insert name="content">
+                    [Template content will be inserted here]
+         </ui:insert>
+					</div>
+				</td>
+
+			</tr>
+			<tr>
+				<td colspan="2">
+					<div id="footer">
+						<p:growl id="msgs" />
+						<p>#{msg['pieDepagina']}</p>
+					</div>
+				</td>
+
+			</tr>
+		</table>
+
+
+	</div>
+	<script type="text/javascript">
+   //   <![CDATA[   
+   function logout(xhr, status, args) {
+     setTimeout(function() {
+       window.location = 'index.jsf';
+     }, 500);
+   } //   ]]> 
+   </script>
+</h:body>
+
+</html>
