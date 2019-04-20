@@ -58,7 +58,7 @@ public class SeguridadBean {
 			esMaestro = true;
 			maestro = maestroReg;
 			System.out.println(maestro);
-			return "/Main.jsf";
+			return "Main.xhtml";
 		}
 		
 	}
@@ -73,7 +73,7 @@ public class SeguridadBean {
 		palabraSecreta = "";
 		maestroReg = null;
 		maestro = new Maestro();
-		return "/index.xhtml";
+		return "faces/index.xhtml";
 	}
 
 	/**

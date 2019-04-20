@@ -199,6 +199,73 @@ public class Maestro {
 				+ email + ", palabraSecreta=" + palabraSecreta + ", usuario=" + usuario + ", clave=" + clave + "]";
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((apellidos == null) ? 0 : apellidos.hashCode());
+		result = prime * result + ((clave == null) ? 0 : clave.hashCode());
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + ((id_maestro == null) ? 0 : id_maestro.hashCode());
+		result = prime * result + ((lstClases == null) ? 0 : lstClases.hashCode());
+		result = prime * result + ((nombres == null) ? 0 : nombres.hashCode());
+		result = prime * result + ((palabraSecreta == null) ? 0 : palabraSecreta.hashCode());
+		result = prime * result + ((usuario == null) ? 0 : usuario.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Maestro other = (Maestro) obj;
+		if (apellidos == null) {
+			if (other.apellidos != null)
+				return false;
+		} else if (!apellidos.equals(other.apellidos))
+			return false;
+		if (clave == null) {
+			if (other.clave != null)
+				return false;
+		} else if (!clave.equals(other.clave))
+			return false;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
+		if (id_maestro == null) {
+			if (other.id_maestro != null)
+				return false;
+		} else if (!id_maestro.equals(other.id_maestro))
+			return false;
+		if (lstClases == null) {
+			if (other.lstClases != null)
+				return false;
+		} else if (!lstClases.equals(other.lstClases))
+			return false;
+		if (nombres == null) {
+			if (other.nombres != null)
+				return false;
+		} else if (!nombres.equals(other.nombres))
+			return false;
+		if (palabraSecreta == null) {
+			if (other.palabraSecreta != null)
+				return false;
+		} else if (!palabraSecreta.equals(other.palabraSecreta))
+			return false;
+		if (usuario == null) {
+			if (other.usuario != null)
+				return false;
+		} else if (!usuario.equals(other.usuario))
+			return false;
+		return true;
+	}
+
 
 
 	

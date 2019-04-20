@@ -92,4 +92,47 @@ public class Clase {
 		this.lstQuices = lstQuices;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((lstEstudiantes == null) ? 0 : lstEstudiantes.hashCode());
+		result = prime * result + ((lstQuices == null) ? 0 : lstQuices.hashCode());
+		result = prime * result + ((maestro == null) ? 0 : maestro.hashCode());
+		result = prime * result + ((nombreClase == null) ? 0 : nombreClase.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Clase other = (Clase) obj;
+		if (lstEstudiantes == null) {
+			if (other.lstEstudiantes != null)
+				return false;
+		} else if (!lstEstudiantes.equals(other.lstEstudiantes))
+			return false;
+		if (lstQuices == null) {
+			if (other.lstQuices != null)
+				return false;
+		} else if (!lstQuices.equals(other.lstQuices))
+			return false;
+		if (maestro == null) {
+			if (other.maestro != null)
+				return false;
+		} else if (!maestro.equals(other.maestro))
+			return false;
+		if (nombreClase == null) {
+			if (other.nombreClase != null)
+				return false;
+		} else if (!nombreClase.equals(other.nombreClase))
+			return false;
+		return true;
+	}
+
 }

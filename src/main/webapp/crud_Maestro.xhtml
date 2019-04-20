@@ -1,7 +1,9 @@
 <!DOCTYPE HTML>
 <html lang="es" xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<f:loadBundle basename="resources.mensaje" var="msg" />
 <h:head>
 	<meta charset="utf-8" name="viewport"
 		content="width=device-width, initial-scale=1"
@@ -9,48 +11,56 @@
 	<title>Administrar Maestros</title>
 </h:head>
 <h:body>
-	<h2>
-		<h:outputText value="Lista Maestros"></h:outputText>
-	</h2>
-	<h:form>
-		<!-- Aqui se llama a la Clase marcada con @ManagedBean(name = "maestroBean") MaestroBean-->
-		<h:commandButton action="#{maestroBean.nuevo()}" value="Nuevo Maestro"></h:commandButton>
-		
-		<!-- en var se pone un alias del cliente para referenciarlo en cada fila de la tabla -->
-		<h:dataTable value="#{maestroBean.obtenerMaestros()}" var="maestro"
-			border="1">
-			<h:column>
-				<f:facet name="header">Id</f:facet>
-				<h:outputText value="#{maestro.id}"></h:outputText>
-			</h:column>
-			<h:column>
-				<f:facet name="header">Nombres</f:facet>
-				<h:outputText value="#{maestro.nombres}"></h:outputText>
-			</h:column>
-			<h:column>
-				<f:facet name="header">Apellidos</f:facet>
-				<h:outputText value="#{maestro.apellidos}"></h:outputText>
-			</h:column>
-			<h:column>
-				<f:facet name="header">Direccion</f:facet>
-				<h:outputText value="#{maestro.direccion}"></h:outputText>
-			</h:column>
-			<h:column>
-				<f:facet name="header">Email</f:facet>
-				<h:outputText value="#{maestro.email}"></h:outputText>
-			</h:column>
+	<ui:composition template="./WEB-INF/templates/basico.xhtml">
+		<ui:define name="contentIzquierdo">
+			<h:form>
+				<!-- Aqui se llama a la Clase marcada con @ManagedBean(name = "maestroBean") MaestroBean-->
+				<h:commandButton action="#{maestroBean.nuevo()}"
+					value="Nuevo Maestro"></h:commandButton>
+			</h:form>
+		</ui:define>
 
-			<h:column>
-				<f:facet name="header">Editar</f:facet>
-				<h:commandButton action="#{maestroBean.editar(maestro.id)}"
-					value="Editar"></h:commandButton>
-			</h:column>
-			<h:column>
-				<f:facet name="header">Eliminar</f:facet>
-				<h:commandButton action="#{maestroBean.eliminar(maestro.id)}"
-					value="Eliminar"></h:commandButton>
-			</h:column>
-		</h:dataTable>
-	</h:form>
+
+		<ui:define name="contentCentro">
+			<h2>
+				<h:outputText value="Lista Maestros"></h:outputText>
+			</h2>
+			<h:form>
+
+				<!-- en var se pone un alias del cliente para referenciarlo en cada fila de la tabla -->
+				<h:dataTable value="#{maestroBean.obtenerMaestros()}" var="maestro"
+					border="1">
+					<h:column>
+						<f:facet name="header">Id</f:facet>
+						<h:outputText value="#{maestro.id_maestro}"></h:outputText>
+					</h:column>
+					<h:column>
+						<f:facet name="header">Nombres</f:facet>
+						<h:outputText value="#{maestro.nombres}"></h:outputText>
+					</h:column>
+					<h:column>
+						<f:facet name="header">Apellidos</f:facet>
+						<h:outputText value="#{maestro.apellidos}"></h:outputText>
+					</h:column>
+					<h:column>
+						<f:facet name="header">Email</f:facet>
+						<h:outputText value="#{maestro.email}"></h:outputText>
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">Editar</f:facet>
+						<h:commandButton
+							action="#{maestroBean.editar(maestro.id_maestro)}" value="Editar"></h:commandButton>
+					</h:column>
+					<h:column>
+						<f:facet name="header">Eliminar</f:facet>
+						<h:commandButton
+							action="#{maestroBean.eliminar(maestro.id_maestro)}"
+							value="Eliminar"></h:commandButton>
+					</h:column>
+				</h:dataTable>
+			</h:form>
+		</ui:define>
+	</ui:composition>
 </h:body>
 </html>

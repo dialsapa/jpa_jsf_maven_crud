@@ -1,0 +1,116 @@
+<!DOCTYPE HTML>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<f:loadBundle basename="resources.mensaje" var="msg" />
+<h:head>
+	<meta charset="utf-8" name="viewport"
+		content="width=device-width, initial-scale=1"
+		http-equiv="X-UA-Conpatible" />
+	<title>Administrar Maestros</title>
+</h:head>
+<h:body>
+	<ui:composition template="./WEB-INF/templates/basico.xhtml">
+		<ui:define name="titulo"> #{msg['webapp.main.tituloPagina']}</ui:define>
+
+		<ui:define name="contentIzquierdo">
+			<p:panelGrid id="menuAdministrador"
+				rendered="#{seguridadBean.esMaestro}">
+
+				<h:form>
+					<p:panelMenu style="width:250px;margin:10px;">
+
+						<p:submenu label="#{msg['webapp.main.menuClase']}">
+							<p:menuitem value="#{msg['webapp.main.nuevaClase']}"
+								url="IngresarOS.jsf" icon="ui-icon-arrowthick-1-s" />
+							<p:menuitem value="#{msg['webapp.main.editarClase']}"
+								url="AsignarOS.jsf" icon="ui-icon-arrowthick-1-s" />
+							<p:menuitem value="#{msg['webapp.main.verQuices']}"
+								url="RecibirDocumentosOS.jsf" icon="ui-icon-arrowthick-1-s" />
+							<p:menuitem value="#{msg['webapp.main.verNotas']}"
+								url="CerrarOS.jsf" icon="ui-icon-arrowthick-1-s" />
+						</p:submenu>
+
+						<p:submenu label="#{msg['webapp.main.menuQuiz']}">
+							<p:menuitem value="Fracciones"
+								url="ConsultaOSporEmpresaCliente.jsf"
+								icon="ui-icon-arrowthick-1-s" />
+							<p:menuitem value="Enteros" url="ConsultaOSporEjecutor.jsf"
+								icon="ui-icon-arrowthick-1-s" />
+							<p:menuitem value="Conceptos" url="ConsultaOSporEstado.jsf"
+								icon="ui-icon-arrowthick-1-s" />
+
+						</p:submenu>
+
+						<p:submenu label="#{msg['webapp.main.crearQuiz']}">
+							<p:menuitem
+								value="#{msg['webapp.Configuracion.quizPersonalizado']}"
+								url="CiudadCRUD.jsf" icon="ui-icon-arrowthick-1-s" />
+						</p:submenu>
+
+						<p:submenu label="#{msg['webapp.main.administrar']}">
+							<p:menuitem value="#{msg['webapp.main.editarCuenta']}"
+								url="CertificadoCRUD.jsf" icon="ui-icon-arrowthick-1-s" />
+							<p:menuitem value="#{msg['salir']}" icon="ui-icon-arrowthick-1-s"
+								action="#{seguridadBean.salir()}" />
+						</p:submenu>
+					</p:panelMenu>
+				</h:form>
+
+			</p:panelGrid>
+
+
+			<p:panelGrid id="menuEjecutores"
+				rendered="#{not seguridadBean.esMaestro}">
+				<h:form>
+					<p:panelMenu style="width:250px;margin:10px;">
+
+						<p:submenu label="#{msg['webapp.main.menuOS']}">
+							<p:menuitem value="#{msg['webapp.main.aceptarOS']}"
+								url="AceptarOS.jsf" icon="ui-icon-arrowthick-1-s" />
+							<p:menuitem value="#{msg['webapp.main.agendarOS']}"
+								url="AgendarOS.jsf" icon="ui-icon-arrowthick-1-s" />
+							<p:menuitem value="#{msg['webapp.main.ejecutarOS']}"
+								url="EjecutarOS.jsf" icon="ui-icon-arrowthick-1-s" />
+						</p:submenu>
+
+						<p:submenu label="#{msg['webapp.main.consultas']}">
+							<p:menuitem value="Ordenes por Cliente"
+								url="ConsultaOSporEmpresaCliente.jsf"
+								icon="ui-icon-arrowthick-1-s" />
+						</p:submenu>
+
+						<p:submenu label="#{msg['webapp.main.util']}">
+							<p:menuitem value="#{msg['webapp.main.agenda']}"
+								url="Calendario.jsf" icon="ui-icon-arrowthick-1-s" />
+							<p:menuitem value="#{msg['webapp.main.imprimirCuentaCobro']}"
+								url="ImprimirCtaCobro.jsf" icon="ui-icon-arrowthick-1-s" />
+							<p:menuitem value="#{msg['webapp.main.cambiarContrasena']}"
+								url="CambiarContrasenia.jsf" icon="ui-icon-arrowthick-1-s" />
+							<p:menuitem value="#{msg['salir']}" icon="ui-icon-arrowthick-1-s"
+								action="#{seguridadBean.salir()}" />
+						</p:submenu>
+					</p:panelMenu>
+				</h:form>
+
+			</p:panelGrid>
+
+
+		</ui:define>
+		<ui:define name="contentCentro">
+			<h1>#{msg['bienvenida']}</h1>
+			<h:panelGrid>
+				<p:outputLabel for="lazy" value="Clases de #{seguridadBean.maestro.nombres}" />
+				<p:selectOneMenu id="lazy" value="#{maestroBean.clase}"
+					dynamic="true" style="width:225px">
+					<f:selectItem itemLabel="Seleccione Una CLase" itemValue="" />
+					<f:selectItems value="#{maestroBean.clases}" />
+				</p:selectOneMenu>
+			</h:panelGrid>
+
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

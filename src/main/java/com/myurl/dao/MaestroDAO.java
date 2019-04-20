@@ -23,7 +23,7 @@ public class MaestroDAO {
 		entity.getTransaction().begin();
 		entity.persist(maestro);
 		entity.getTransaction().commit();
-		//JPAUtil.shutdown();
+		// JPAUtil.shutdown();
 	}
 
 	/**
@@ -35,7 +35,7 @@ public class MaestroDAO {
 		entity.getTransaction().begin();
 		entity.merge(maestro);
 		entity.getTransaction().commit();
-		//JPAUtil.shutdown();
+		// JPAUtil.shutdown();
 	}
 
 	/**
@@ -47,31 +47,30 @@ public class MaestroDAO {
 	 */
 	public Maestro buscarMaestro(Long id) {
 		Maestro maestro = new Maestro();
-		maestro = entity.find(Maestro.class, id); 	// busca un Maestro con llave igual a id
+		maestro = entity.find(Maestro.class, id); // busca un Maestro con llave igual a id
 		return maestro;
 	}
-	
-	
+
 	/**
-	 * Metodo que usa la tecnologia Hibernate para buscar y retornar un cliente en
+	 * Metodo que usa la tecnologia Hibernate para buscar y retornar un Maestro en
 	 * la BD, teniendo como criterio de busqueda el usuario y clave
 	 * 
-	 * @param id llave del cliente a buscar
-	 * @return cliente cuyo id coincida con el mandado por parametro
+	 * @param id llave del Maestro a buscar
+	 * @return Maestro cuyo id coincida con el mandado por parametro
 	 */
 	public Maestro buscarMaestroPorUsuarioClave(String usuario, String clave) {
-		TypedQuery<Maestro> query = entity
-				.createQuery(
-						"SELECT m FROM Maestro m WHERE m.usuario=:usua AND m.clave=:cla",
-						Maestro.class);
+		TypedQuery<Maestro> query = entity.createQuery("SELECT m FROM Maestro m WHERE m.usuario=:usua AND m.clave=:cla",
+				Maestro.class);
 		query.setParameter("usua", usuario);
 		query.setParameter("cla", clave);
-
-		return query.getSingleResult();
+		if (query.getResultList().size() != 0)
+			return query.getResultList().get(0);
+		else
+			return null;
 	}
 
 	/**
-	 * Metodo que usa la tecnologia Hibernate para obtener todos los clientes de la
+	 * Metodo que usa la tecnologia Hibernate para obtener todos los Maestro de la
 	 * BD
 	 * 
 	 * @return
@@ -103,15 +102,13 @@ public class MaestroDAO {
 
 	public boolean validarPorPalabraSecreta(String usuario, String palabraSecreta) {
 		TypedQuery<Maestro> query = entity
-				.createQuery(
-						"SELECT u FROM Maestro u WHERE u.usuario=:usua AND u.palabraSecreta=:ps",
-						Maestro.class);
+				.createQuery("SELECT u FROM Maestro u WHERE u.usuario=:usua AND u.palabraSecreta=:ps", Maestro.class);
 		query.setParameter("usua", usuario);
 		query.setParameter("ps", palabraSecreta);
 
-		Maestro m= query.getSingleResult();
-		
-		if(m==null)
+		Maestro m = query.getSingleResult();
+
+		if (m == null)
 			return false;
 		else
 			return true;
