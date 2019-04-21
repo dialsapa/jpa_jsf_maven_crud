@@ -9,7 +9,7 @@
 	<meta charset="utf-8" name="viewport"
 		content="width=device-width, initial-scale=1"
 		http-equiv="X-UA-Conpatible" />
-	<title>Administrar Maestros</title>
+	<title>Administrar Clases</title>
 </h:head>
 <h:body>
 	<ui:composition template="./WEB-INF/templates/basico.xhtml">
@@ -26,7 +26,7 @@
 							<p:menuitem value="#{msg['webapp.main.nuevaClase']}"
 								url="IngresarOS.jsf" icon="ui-icon-arrowthick-1-s" />
 							<p:menuitem value="#{msg['webapp.main.editarClase']}"
-								url="AsignarOS.jsf" icon="ui-icon-arrowthick-1-s" />
+								url="crud_clase.jsf" icon="ui-icon-arrowthick-1-s" />
 							<p:menuitem value="#{msg['webapp.main.verQuices']}"
 								url="RecibirDocumentosOS.jsf" icon="ui-icon-arrowthick-1-s" />
 							<p:menuitem value="#{msg['webapp.main.verNotas']}"
@@ -89,27 +89,46 @@
 								url="ImprimirCtaCobro.jsf" icon="ui-icon-arrowthick-1-s" />
 							<p:menuitem value="#{msg['webapp.main.cambiarContrasena']}"
 								url="CambiarContrasenia.jsf" icon="ui-icon-arrowthick-1-s" />
-							<p:menuitem value="#{msg['salir']}" icon="ui-icon-arrowthick-1-s"
-								action="#{seguridadBean.salir()}" />
+							<h:form>
+								<p:menuitem value="#{msg['salir']}"
+									icon="ui-icon-arrowthick-1-s" action="#{seguridadBean.salir()}" />
+							</h:form>
 						</p:submenu>
 					</p:panelMenu>
 				</h:form>
 
 			</p:panelGrid>
+		</ui:define>
 
+
+		<ui:define name="contentCentro">
+
+			<h:form id="reg">
+				<p:growl id="msgs" />
+
+				<p:dataTable id="eventsDT" var="_clase"
+					value="#{maestroBean.clases}" selectionMode="single"
+					selection="#{maestroBean.clase}" rowKey="#{_clase.nombreClase}">
+
+					<f:facet name="header">
+            		Clases del Maestro
+        		</f:facet>
+					<p:column>
+						<h:outputText value="#{_clase.nombreClase}" />
+						<f:facet name="header">Editar</f:facet>
+						<h:commandButton
+							action="#{maestroBean.editarClase(_clase.nombreClase)}"
+							value="Editar"></h:commandButton>
+					</p:column>
+
+				</p:dataTable>
+				<p:separator></p:separator>
+			</h:form>
 
 		</ui:define>
-		<ui:define name="contentCentro">
-			<h1>#{msg['bienvenida']}</h1>
-			<h:panelGrid>
-				<p:outputLabel for="lazy" value="Clases de #{seguridadBean.maestro.nombres}" />
-				<p:selectOneMenu id="lazy" value="#{maestroBean.clase}"
-					dynamic="true" style="width:225px">
-					<f:selectItem itemLabel="Seleccione Una CLase" itemValue="" />
-					<f:selectItems value="#{maestroBean.clases}" />
-				</p:selectOneMenu>
-			</h:panelGrid>
 
+		<ui:define name="contentDerecha">
+			<h1>Selecciona una Clase</h1>
 		</ui:define>
 	</ui:composition>
 </h:body>

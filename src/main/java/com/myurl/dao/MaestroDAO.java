@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
+import com.myurl.model.Clase;
 import com.myurl.model.Cliente;
 import com.myurl.model.JPAUtil;
 import com.myurl.model.Maestro;
@@ -83,6 +84,20 @@ public class MaestroDAO {
 																		// que se usa solo para la consulta.
 		lstMaestros = q.getResultList();
 		return lstMaestros;
+	}
+
+	/**
+	 * Metodo que busca todas las clases de un maestro
+	 * 
+	 * @param maestro
+	 * @return
+	 */
+	public List<Clase> buscarClasesPorMaestro(Maestro maestro) {
+		TypedQuery<Clase> query = entity.createQuery("SELECT os FROM Clase os WHERE os.maestro.id_maestro=:id",
+				Clase.class);
+		query.setParameter("id", maestro.getId_maestro());
+
+		return query.getResultList();
 	}
 
 	/**

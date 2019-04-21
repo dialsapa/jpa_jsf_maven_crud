@@ -4,25 +4,51 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
-import com.myurl.dao.ClaseDAO;
+import org.primefaces.event.SelectEvent;
+import org.primefaces.event.UnselectEvent;
+
 import com.myurl.dao.MaestroDAO;
 import com.myurl.model.Clase;
 import com.myurl.model.Maestro;
 
 @ManagedBean(name = "maestroBean") // nombre que se le dara al objeto desde las vistas
-@RequestScoped
+@SessionScoped
 public class MaestroBean {
+
+	@ManagedProperty(value = "#{seguridadBean.maestro}")
+	private Maestro maestro;
+
+	private List<Clase> clases;
+
 	private Clase clase;
+
+	@PostConstruct
+	public void init() {
+		// lista las clases del Maestro
+		MaestroDAO maestroDAO = new MaestroDAO();
+		clases = maestroDAO.buscarClasesPorMaestro(maestro);
+	}
 
 	public String nuevo() {
 		Maestro c = new Maestro();
 		Map<String, Object> sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
 		sessionMap.put("maestro", c);
 		return "/faces/nuevoMaestro.xhtml";
+	}
+
+	public String irCrudClase() {
+		Map<String, Object> sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
+		sessionMap.put("clase", clase);
+		return "/faces/crud_clase.xhtml";
 	}
 
 	public String guardar(Maestro maestro) {
@@ -65,6 +91,33 @@ public class MaestroBean {
 		return "/faces/editarMaestro.xhtml";
 	}
 
+	public String editarClase(String nombreClase) {
+		MaestroDAO maestroDAO = new MaestroDAO();
+		List<Clase> clases = maestroDAO.buscarClasesPorMaestro(maestro);
+
+		clase = buscarUnaClase(clases, nombreClase);
+
+		System.out.println("******************** CLASE A EDITAR **********************");
+		System.out.println(clase.getNombreClase());
+
+		// Se crea un contexto en donde se guardara el objeto maestro para
+		// posteriormente enviarlo a la vista editar
+		// tendra un alcance de session
+		Map<String, Object> sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
+		// aqui le damos el alias del objeto y el objeto
+
+		sessionMap.put("clase", clase);
+		return "/faces/crud_clase.xhtml";
+	}
+
+	private Clase buscarUnaClase(List<Clase> clases2, String nombreClase) {
+		for (Clase c : clases2) {
+			if (c.getNombreClase().equals(nombreClase))
+			return c;
+		}
+		return null;
+	}
+
 	/**
 	 * Medoto que actualiza los datos de un maestro
 	 * 
@@ -72,7 +125,7 @@ public class MaestroBean {
 	 * @return la pagina que se va a redireccionar
 	 */
 
-	public String actualizar(Maestro maestro) {
+	public String actualizar() {
 		MaestroDAO maestroDAO = new MaestroDAO();
 		maestroDAO.editar(maestro);
 		return "/faces/crud_Maestro.xhtml";
@@ -91,12 +144,31 @@ public class MaestroBean {
 		return "/faces/crud_Maestro.xhtml";
 	}
 
-	public List<Clase> getClases() {
-		List<Clase> lstClasesReg = new ArrayList<Clase>();
-		ClaseDAO cd = new ClaseDAO();
-		lstClasesReg = cd.obtenerTodasLasClases();
-		return lstClasesReg;
+	public void onRowSelect(SelectEvent event) {
+		clase = (Clase) event.getObject();
+		FacesMessage msg = new FacesMessage("Clase Seleccionada: " + String.valueOf(clase.getNombreClase()));
+		FacesContext.getCurrentInstance().addMessage(null, msg);
 
+	}
+
+	public void onRowUnselect(UnselectEvent event) {
+
+		FacesMessage msg = new FacesMessage("Clase No seccionada: " + String.valueOf(clase.getNombreClase()));
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+
+	/**
+	 * @return the clases
+	 */
+	public List<Clase> getClases() {
+		return clases;
+	}
+
+	/**
+	 * @param clases the clases to set
+	 */
+	public void setClases(List<Clase> clases) {
+		this.clases = clases;
 	}
 
 	/**
@@ -111,6 +183,20 @@ public class MaestroBean {
 	 */
 	public void setClase(Clase clase) {
 		this.clase = clase;
+	}
+
+	/**
+	 * @return the maestro
+	 */
+	public Maestro getMaestro() {
+		return maestro;
+	}
+
+	/**
+	 * @param maestro the maestro to set
+	 */
+	public void setMaestro(Maestro maestro) {
+		this.maestro = maestro;
 	}
 
 }

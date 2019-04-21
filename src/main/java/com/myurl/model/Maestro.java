@@ -1,5 +1,6 @@
 package com.myurl.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -10,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity								//se indica que es una ENTIDAD
 @Table(name="maestros")	
-public class Maestro {
+public class Maestro implements Serializable {
 	@Id
 	private Long id_maestro;
 	

@@ -1,5 +1,7 @@
 package com.myurl.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -9,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity								//se indica que es una ENTIDAD
 @Table(name="preguntas")
-public class Pregunta {
+public class Pregunta implements Serializable{
 	@Id
 	private int id_pregunta;
 	

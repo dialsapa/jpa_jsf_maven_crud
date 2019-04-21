@@ -1,5 +1,6 @@
 package com.myurl.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -13,7 +14,7 @@ import javax.persistence.TemporalType;
 
 @Entity								//se indica que es una ENTIDAD
 @Table(name="clientes")				//el nombre de la tabla es "clientes" en la BD
-public class Cliente {
+public class Cliente implements Serializable{
 	@Id								//se indica que este atributo es la llave principal de la tabla
 	@GeneratedValue(strategy=GenerationType.IDENTITY)	//se indica que el id es autoincrementable
 	private Long id;

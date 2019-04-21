@@ -9,6 +9,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
 import com.myurl.dao.MaestroDAO;
+import com.myurl.model.Clase;
 import com.myurl.model.Maestro;
 
 /**
@@ -35,6 +36,7 @@ public class SeguridadBean {
 	private String passwordActual;
 	private String nuevoPasswordConf;
 	private String codigoQuiz;
+	private Clase claseSelec;
 
 	private boolean autenticado = false;
 	private boolean usuarioValidado = false;
@@ -58,7 +60,7 @@ public class SeguridadBean {
 			esMaestro = true;
 			maestro = maestroReg;
 			System.out.println(maestro);
-			return "Main.xhtml";
+			return "/Main.xhtml";
 		}
 		
 	}
@@ -301,6 +303,20 @@ public class SeguridadBean {
 	 */
 	public void setEsMaestro(boolean esMaestro) {
 		this.esMaestro = esMaestro;
+	}
+
+	/**
+	 * @return the claseSelec
+	 */
+	public Clase getClaseSelec() {
+		return claseSelec;
+	}
+
+	/**
+	 * @param claseSelec the claseSelec to set
+	 */
+	public void setClaseSelec(Clase claseSelec) {
+		this.claseSelec = claseSelec;
 	}
 
 }

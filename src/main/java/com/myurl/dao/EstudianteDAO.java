@@ -5,9 +5,12 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
+import com.myurl.model.Clase;
 import com.myurl.model.Estudiante;
 import com.myurl.model.JPAUtil;
+import com.myurl.model.Maestro;
 
 public class EstudianteDAO {
 	EntityManager entity = JPAUtil.getEntityManagerFactory().createEntityManager();
@@ -62,6 +65,22 @@ public class EstudianteDAO {
 		lstEstudiante = q.getResultList();
 		return lstEstudiante;
 	}
+	
+	
+	/**
+	 * Metodo que busca todas las clases de un maestro
+	 * 
+	 * @param clase
+	 * @return
+	 */
+	public List<Estudiante> buscarEstudiantesPorClase(Clase clase) {
+		TypedQuery<Estudiante> query = entity.createQuery("SELECT es FROM Estudiante es WHERE es.clase.nombreClase=:id",
+				Estudiante.class);
+		query.setParameter("id", clase.getNombreClase());
+
+		return query.getResultList();
+	}
+	
 
 	/**
 	 * Metodo que usa la tecnologia Hibernate para fuscar y eliminar un Estudiante en

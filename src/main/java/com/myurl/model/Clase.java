@@ -1,5 +1,6 @@
 package com.myurl.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -11,7 +12,7 @@ import javax.persistence.Table;
 
 @Entity								//se indica que es una ENTIDAD
 @Table(name="clases")				//el nombre de la tabla es "clientes" en la BD
-public class Clase {
+public class Clase implements Serializable {
 	@Id
 	private String nombreClase;
 	

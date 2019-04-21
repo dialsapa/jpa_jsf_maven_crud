@@ -1,5 +1,6 @@
 package com.myurl.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -22,7 +23,7 @@ import javax.persistence.TemporalType;
 @Entity // se indica que es una ENTIDAD
 @Table(name = "quices") // el nombre de la tabla es "clientes" en la BD
 
-public class Quiz {
+public class Quiz implements Serializable {
 	@Id
 	private Long id_quiz;
 
